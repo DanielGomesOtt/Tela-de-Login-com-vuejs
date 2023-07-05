@@ -1,4 +1,5 @@
 <script>
+    import router from '../router/index' 
     export default{
         name: 'RightFirstPage',
         data(){
@@ -23,7 +24,13 @@
                     body: dados
                 });
                 let dados_req = await req.json();
-                console.log(dados_req);
+                if(dados_req.error){
+                    document.getElementById('div-error').removeAttribute('hidden');
+                }else{
+                    localStorage.setItem('token', dados_req.token);
+                    localStorage.setItem('id', dados_req.result[0].insertId);
+                    this.$router.push('/user');
+                }
                 
             }
         },
@@ -36,6 +43,9 @@
             <h4 class="font-semibold text-5xl">Crie sua conta agora !</h4>
         </div>
         <div>
+            <div hidden id="div-error">
+                <p class="text-center text-red-500">Erro ao tentar cadastrar usuário !</p>
+            </div>
             <form @submit="setUser($event)">
                 <div class="flex justify-center pb-5">
                     <input type="text" class="border-2 rounded-lg w-5/6 h-14 outline-none pl-2 focus:shadow-lg duration-700" placeholder="Seu Nome" required v-model="nome">

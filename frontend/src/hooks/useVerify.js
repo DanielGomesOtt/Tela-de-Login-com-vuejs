@@ -1,15 +1,16 @@
-export default async function useVerify(token){
+const useVerify =  async (token) => {
     let req = await fetch('http://localhost:3000/auth', {
-        method: 'GET',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
     });
-    let response = req.json();
+    let response = await req.json();
     if(response != 500){
         return true;
     }else{
-        window.location.replace('http://localhost:5173/');
+        return false;
     }
 }
+
+export default useVerify;
