@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '../views/HomePage.vue'
+import UserPage from '../views/UserPage.vue'
 import FirstPage from '../views/FirstPage.vue'
 import useVerify from '../hooks/useVerify'
 import useVerifyExistToken from '../hooks/useVerifyExistToken'
@@ -28,8 +28,8 @@ const router = createRouter({
     },
     {
       path: '/user',
-      name: 'HomePage',
-      component: HomePage,
+      name: 'UserPage',
+      component: UserPage,
       beforeEnter: (to, from, next) => {
         useVerify(localStorage.getItem('token'))
           .then(result => {

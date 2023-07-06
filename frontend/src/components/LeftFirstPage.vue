@@ -1,6 +1,7 @@
 <script>
     export default{
         name: 'LeftFirstPage',
+        emits: ['showModal']
     }
 </script>
 
@@ -13,7 +14,7 @@
             <p class="text-white font-semibold text-xl px-10">Bem vindo(a) ao Task Life, acesse sua conta e aproveite !</p>
         </div>
         <div class="flex justify-center items-center h-3/6">
-            <button class="text-white border-2 w-56 h-14 rounded-lg hover:shadow hover:shadow-white duration-700">Login</button>
+            <button class="text-white border-2 w-56 h-14 rounded-lg hover:shadow hover:shadow-white duration-700" @click="$emit('showModal')">Login</button>
         </div>
         
     </div>

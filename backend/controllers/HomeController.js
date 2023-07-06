@@ -41,4 +41,28 @@ async function verifyUser(email){
     }
 }
 
-module.exports = {setUser};
+async function loginUser(req, res){
+    try{
+        let response = await HomeModel.verifyUser(req.headers.email);
+        if(response && response[0] && response[0][0] && response[0][0].senha){
+            let isValid = await bcrypt.compare(req.headers.password, response[0][0].senha);
+            if(isValid){
+                let token = jwt.sign(response[0][0]);
+                req.body.token = token;
+                req.body.id = response[0][0].id;
+                res.send(req.body);
+            }else{
+                req.body.error = 'error';
+                res.send(req.body);
+            }
+        }else{
+            req.body.error = 'error';
+            res.send(req.body);
+        }
+    }catch(error){
+        req.body.error = 'error';
+        res.send(req.body);
+    }
+}
+
+module.exports = {setUser, loginUser};

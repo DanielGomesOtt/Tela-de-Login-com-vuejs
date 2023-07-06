@@ -6,7 +6,7 @@ function verifyToken(req, res){
         const verify = jwt.verify(req.headers.authorization[1]);
         res.send(verify);
     }catch(err){
-        res.sendStatus(500);
+        res.send(false);
     }
 }
 
